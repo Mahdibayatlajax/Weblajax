@@ -1,177 +1,156 @@
-# Weblajax
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دیجی‌کالا - نسخه مشابه</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>دیجی‌شاپ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+        body{background:#f5f5f5;color:#333;direction:rtl}
+        .container{width:90%;max-width:1200px;margin:0 auto}
+        .header{background:#a62626}
+        .top-bar{background:#424750;color:#fff;padding:10px 0;font-size:14px}
+        .top-bar .container{display:flex;justify-content:space-between}
+        .main-header{padding:15px 0}
+        .main-header .container{display:flex;align-items:center;justify-content:space-between}
+        .logo img{height:40px}
+        .search-box{display:flex;width:50%}
+        .search-box input{width:100%;padding:10px 15px;border:none;border-radius:5px 0 0 5px}
+        .search-box button{background:#424750;color:#fff;border:none;padding:0 20px;border-radius:0 5px 5px 0;cursor:pointer}
+        .header-actions a{color:#fff;margin-right:15px;font-size:18px}
+        .main-menu{background:#3d3d3d}
+        .main-menu ul{display:flex;list-style:none}
+        .main-menu li:hover{background:#a62626}
+        .main-menu a{color:#fff;text-decoration:none;display:block;padding:15px 20px;font-size:14px}
+        .main-slider{margin:20px 0}
+        .slider{position:relative;height:400px;overflow:hidden;border-radius:5px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+        .slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity .5s}
+        .slide.active{opacity:1}
+        .slide img{width:100%;height:100%;object-fit:cover}
+        .categories{display:flex;justify-content:space-between;margin-top:15px}
+        .category{background:#fff;width:18%;text-align:center;padding:15px 0;border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,.1);cursor:pointer;transition:transform .3s}
+        .category:hover{transform:translateY(-5px)}
+        .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+        .product{background:#fff;border-radius:5px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.1);transition:transform .3s,box-shadow .3s}
+        .product:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,.1)}
+        .product img{width:100%;height:200px;object-fit:contain;padding:15px}
+        .add-to-cart{display:block;width:100%;padding:10px;background:#a62626;color:#fff;border:none;cursor:pointer}
+        .footer{background:#3d3d3d;color:#fff;padding:40px 0 20px}
+        @media (max-width:768px){.products-grid{grid-template-columns:repeat(2,1fr)}}
+    </style>
 </head>
 <body>
-    <!-- هدر سایت -->
     <header class="header">
-        <div class="logo">
-            <img src="images/logo.png" alt="دیجی‌کالا">
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> 021-12345678</span>
+                </div>
+                <div class="user-menu">
+                    <a href="#"><i class="fas fa-user"></i> ورود / ثبت‌نام</a>
+                </div>
+            </div>
         </div>
-        <div class="search-box">
-            <input type="text" placeholder="جستجو در دیجی‌کالا...">
-            <button><i class="fas fa-search"></i></button>
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1>دیجی‌شاپ</h1>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="جستجوی محصولات...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="cart"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
         </div>
-        <div class="user-actions">
-            <a href="#"><i class="fas fa-user"></i> ورود | ثبت‌نام</a>
-            <a href="#"><i class="fas fa-shopping-cart"></i> سبد خرید</a>
-        </div>
+        <nav class="main-menu">
+            <div class="container">
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> خانه</a></li>
+                    <li><a href="#"><i class="fas fa-box-open"></i> محصولات</a></li>
+                    <li><a href="#"><i class="fas fa-percentage"></i> تخفیف‌ها</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
-    <!-- منوی اصلی -->
-    <nav class="main-menu">
-        <ul>
-            <li><a href="#">خانه</a></li>
-            <li><a href="#">کالاهای سوپرمارکتی</a></li>
-            <li><a href="#">پرفروش‌ترین‌ها</a></li>
-            <li><a href="#">تخفیف‌ها و پیشنهادها</a></li>
-            <li><a href="#">دسته‌بندی‌ها</a></li>
-        </ul>
-    </nav>
-
-    <!-- اسلایدر محصولات -->
-    <section class="product-slider">
-        <div class="slider-container">
-            <!-- محتوای اسلایدر -->
-     </div>
-    </section>
-
-    <!-- بخش محصولات -->
-    <section class="products">
-        <h2>پرفروش‌ترین محصولات</h2>
-        <div class="product-grid">
-            <!-- محصولات اینجا نمایش داده می‌شوند -->
+    <section class="main-slider">
+        <div class="container">
+            <div class="slider">
+                <div class="slide active">
+                    <img src="https://via.placeholder.com/1200x400?text=Slider+1" alt="تخفیف ویژه">
+                </div>
+                <div class="slide">
+                    <img src="https://via.placeholder.com/1200x400?text=Slider+2" alt="محصولات جدید">
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- فوتر -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>محصولات ویژه</h2>
+                <a href="#" class="view-all">مشاهده همه</a>
+            </div>
+            <div class="products-grid">
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x300?text=محصول+1" alt="گوشی موبایل">
+                    <h3>گوشی موبایل سامسونگ</h3>
+                    <div class="price">۱۲,۹۹۰,۰۰۰ تومان</div>
+                    <button class="add-to-cart">افزودن به سبد خرید</button>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x300?text=محصول+2" alt="لپ‌تاپ">
+                    <h3>لپ‌تاپ 15 اینچی ایسوس</h3>
+                    <div class="price">۲۴,۷۹۰,۰۰۰ تومان</div>
+                    <button class="add-to-cart">افزودن به سبد خرید</button>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x300?text=محصول+3" alt="هدفون">
+                    <h3>هدفون بی‌سیم</h3>
+                    <div class="price">۱,۲۹۰,۰۰۰ تومان</div>
+                    <button class="add-to-cart">افزودن به سبد خرید</button>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x300?text=محصول+4" alt="ماوس">
+                    <h3>ماوس گیمینگ</h3>
+                    <div class="price">۵۹۰,۰۰۰ تومان</div>
+                    <button class="add-to-cart">افزودن به سبد خرید</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
-        <div class="footer-sections">            <!-- بخش‌های فوتر -->
+        <div class="container">
+            <p>© ۱۴۰۲ دیجی‌شاپ - تمام حقوق محفوظ است</p>
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+        // اسلایدر ساده
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        
+        function showSlide() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.add('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+        }
+        
+        setInterval(showSlide, 3000);
+        
+        // افزودن به سبد خرید
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('محصول به سبد خرید اضافه شد!');
+            });
+        });
+    </script>
 </body>
 </html>
-Online trading 
-</body>
-</html>
-/* تنظیمات پایه */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #f5f5f5;
-    color: #333;
-    direction: rtl;
-}
-
-/* استایل هدر */
-.header {
-    background-color: #a62626;
-    padding: 15px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.logo img {
-    height: 40px;
-}
-
-.search-box {
-    display: flex;
-    width: 50%;
-}
-
-.search-box input {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px 0 0 5px;
-}
-
-.search-box button {
-    background-color: #424750;
-    color: white;
-    border: none;
-    padding: 0 15px;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-}
-
-.user-actions a {
-    color: white;
-    margin-right: 15px;
-    text-decoration: none;
-}
-
-/* استایل منوی اصلی */
-.main-menu {
-    background-color: #424750;
-    padding: 10px 0;
-}
-
-.main-menu ul {
-    display: flex;
-    list-style: none;
-}
-
-.main-menu li {
-    margin-left: 20px;
-}
-
-.main-menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-/* استایل اسلایدر */
-.product-slider {
-    margin: 20px 0;
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-/* استایل محصولات */
-.products {
-    margin: 20px 0;
-}
-
-.products h2 {
-    margin-bottom: 15px;
-    font-size: 18px;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-}
-
-/* استایل فوتر */
-.footer {
-    background-color: #424750;
-    color: white;
-    padding: 30px 0;
-    margin-top: 30px;
-}
-
-.footer-sections {
-    display: flex;
-    justify-content: space-around;
-}
