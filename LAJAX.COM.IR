@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lajax - ترکیب دیوار، روبیکا و دیجی‌کالا</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4e54c8;
+            --secondary: #6a11cb;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(78, 84, 200, 0.8), rgba(106, 17, 203, 0.8)), url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .tab-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        
+        .nav-tabs .nav-link {
+            font-weight: 600;
+            color: var(--dark);
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 15px 25px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background: transparent;
+        }
+        
+        .product-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .received {
+            background: #e9ecef;
+            border-top-left-radius: 5px;
+            align-self: flex-start;
+        }
+        
+        .sent {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-top-right-radius: 5px;
+            align-self: flex-end;
+        }
+        
+        .otp-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .zoom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1050;
+        }
+        
+        .zoom-img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+        
+        .footer {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+            margin-top: 40px;
+            padding: 30px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .auth-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 30px;
+            padding: 10px 25px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(106, 17, 203, 0.3);
+        }
+        
+        .filter-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-tabs .nav-link {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- نوار ناوبری -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-cubes me-2"></i>Lajax
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#features">ویژگی‌ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">سرویس‌ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">درباره ما</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">تماس</a>
+                    </li>
+                </ul>
+                <div class="d-flex ms-3">
+                    <button class="btn btn-outline-primary me-2" onclick="showOTPModal()">
+                        <i class="fas fa-user me-1"></i>ورود/ثبت‌نام
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- بخش اصلی -->
+    <div class="container my-5">
+        <!-- بخش قهرمان -->
+        <div class="hero-section p-4 p-md-5 text-center">
+            <div class="hero-content col-md-8 mx-auto">
+                <h1 class="display-4 fw-bold mb-4">پلتفرم یکپارچه Lajax</h1>
+                <p class="lead mb-4">ترکیبی از بهترین‌های دیوار، روبیکا و دیجی‌کالا در یک پلتفرم پیشرفته</p>
+                <div class="d-flex justify-content-center flex-wrap gap-3">
+                    <button class="btn btn-light btn-lg px-4 py-2">
+                        <i class="fas fa-download me-2"></i>دانلود اپلیکیشن
+                    </button>
+                    <button class="btn btn-outline-light btn-lg px-4 py-2" onclick="showOTPModal()">
+                        <i class="fas fa-play-circle me-2"></i>شروع کنید
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ویژگی‌های اصلی -->
+        <section id="features" class="my-5 py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-3">ویژگی‌های پیشرفته Lajax</h2>
+                <p class="text-muted">ترکیبی از بهترین قابلیت‌های پلتفرم‌های پیشرو بازار</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- ویژگی 1 -->
+                <div class="col-md-4">
+                    <div class="feature-card p-4 text-center h-100">
+                        <i class="fas fa-search"></i>
+                        <h4 class="mb-3">جستجوی پیشرفته</h4>
+                        <p>سیستم فیلترینگ هوشمند با قابلیت‌های پیشرفته برای یافتن دقیق‌ترین نتایج</p>
+                    </div>
+                </div>
+                
+                <!-- ویژگی 2 -->
+                <div class="col-md-4">
+                    <div class="feature-card p-4 text-center h-100">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h4 class="mb-3">فروشگاه آنلاین</h4>
+                        <p>سیستم فروشگاهی پیشرفته با امکانات کامل خرید و فروش محصولات</p>
+                    </div>
+                </div>
+                
+                <!-- ویژگی 3 -->
+                <div class="col-md-4">
+                    <div class="feature-card p-4 text-center h-100">
+                        <i class="fas fa-comments"></i>
+                        <h4 class="mb-3">پیام‌رسانی هوشمند</h4>
+                        <p>سیستم چت یکپارچه با قابلیت ارسال متن، تصویر و تماس صوتی</p>
+                    </div>
+                </div>
+                
+                <!-- ویژگی 4 -->
+                <div class="col-md-4">
+                    <div class="feature-card p-4 text-center h-100">
+                        <i class="fas fa-wallet"></i>
+                        <h4 class="mb-3">درگاه پرداخت</h4>
+                        <p>پشتیبانی از تمامی درگاه‌های بانکی و سیستم‌های پرداخت آنلاین</p>
+                    </div>
+                </div>
+                
+                <!-- ویژگی 5 -->
+                <div class="col-md-4">
+                    <div class="feature-card p-4 text-center h-100">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4 class="mb-3">واکنش‌گرا</h4>
+                        <p>طراحی کاملاً واکنش‌گرا برای تمامی دستگاه‌ها و اندازه‌های صفحه نمایش</p>
+                    </div>
+                </div>
+                
+                <!-- ویژگی 6 -->
+                <div class="col-md-4">
+                    <div class="feature-card p-4 text-center h-100">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4 class="mb-3">امنیت بالا</h4>
+                        <p>سیستم امنیتی پیشرفته با احراز هویت دو مرحله‌ای و رمزنگاری داده‌ها</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- تب‌های اصلی -->
+        <section id="services" class="my-5">
+            <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="ads-tab" data-bs-toggle="tab" data-bs-target="#ads" type="button">
+                        <i class="fas fa-bullhorn me-2"></i>آگهی‌ها (دیوار)
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="shop-tab" data-bs-toggle="tab" data-bs-target="#shop" type="button">
+                        <i class="fas fa-shopping-bag me-2"></i>فروشگاه (دیجی‌کالا)
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="chat-tab" data-bs-toggle="tab" data-bs-target="#chat" type="button">
+                        <i class="fas fa-comment-dots me-2"></i>چت (روبیکا)
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="mainTabsContent">
+                <!-- تب آگهی‌ها -->
+                <div class="tab-pane fade show active" id="ads" role="tabpanel">
+                    <div class="filter-section">
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <input type="text" class="form-control" placeholder="جستجوی آگهی‌ها...">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <select class="form-select">
+                                    <option>همه دسته‌بندی‌ها</option>
+                                    <option>املاک</option>
+                                    <option>وسایل نقلیه</option>
+                                    <option>کالای دیجیتال</option>
+                                    <option>خانه و آشپزخانه</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <select class="form-select">
+                                    <option>همه شهرها</option>
+                                    <option>تهران</option>
+                                    <option>مشهد</option>
+                                    <option>اصفهان</option>
+                                    <option>شیراز</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <button class="btn btn-primary w-100">
+                                    <i class="fas fa-filter me-1"></i>فیلتر
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" 
+                                     class="card-img-top product-img" alt="دوربین DSLR" onclick="zoomImage(this.src)">
+                                <div class="card-body">
+                                    <h5 class="card-title">دوربین حرفه‌ای Canon EOS R6</h5>
+                                    <p class="card-text text-muted">دوربین فول‌فریم حرفه‌ای با قابلیت‌های فیلمبرداری 4K</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">۲۲,۵۰۰,۰۰۰ تومان</span>
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-phone me-1"></i>تماس
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" 
+                                     class="card-img-top product-img" alt="لپتاپ" onclick="zoomImage(this.src)">
+                                <div class="card-body">
+                                    <h5 class="card-title">لپتاپ Dell XPS 15</h5>
+                                    <p class="card-text text-muted">لپتاپ فوق‌العاده قدرتمند با صفحه نمایش OLED</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">۶۵,۰۰۰,۰۰۰ تومان</span>
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-phone me-1"></i>تماس
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" 
+                                     class="card-img-top product-img" alt="دوچرخه" onclick="zoomImage(this.src)">
+                                <div class="card-body">
+                                    <h5 class="card-title">دوچرخه کوهستان حرفه‌ای</h5>
+                                    <p class="card-text text-muted">دوچرخه کوهستان با فریم آلومینیومی و دنده‌های Shimano</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">۱۸,۰۰۰,۰۰۰ تومان</span>
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-phone me-1"></i>تماس
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary px-4 py-2">
+                            <i class="fas fa-plus-circle me-2"></i>ثبت آگهی جدید
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- تب فروشگاه -->
+                <div class="tab-pane fade" id="shop" role="tabpanel">
+                    <div class="row mb-4">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="جستجوی محصولات...">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select">
+                                <option>مرتب‌سازی بر اساس: جدیدترین</option>
+                                <option>مرتب‌سازی بر اساس: ارزان‌ترین</option>
+                                <option>مرتب‌سازی بر اساس: گران‌ترین</option>
+                                <option>مرتب‌سازی بر اساس: پرفروش‌ترین</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3 mb-4">
+                            <div class="card product-card">
+                                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" 
+                                     class="card-img-top product-img" alt="ساعت هوشمند" onclick="zoomImage(this.src)">
+                                <div class="card-body">
+                                    <h5 class="card-title">ساعت هوشمند اپل سری 8</h5>
+                                    <p class="card-text text-muted">ساعت هوشمند با قابلیت‌های سلامتی و تناسب اندام</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">۱۵,۹۰۰,۰۰۰ تومان</span>
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-cart-plus me-1"></i>خرید
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 mb-4">
+                            <div class="card product-card">
+                                <img src="https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" 
+                                     class="card-img-top product-img" alt="هدفون" onclick="zoomImage(this.src)">
+                                <div class="card-body">
+                                    <h5 class="card-title">هدفون Sony WH-1000XM5</h5>
+                                    <p class="card-text text-muted">هدفون بی‌سیم با حذف نویز فعال و کیفیت صدای عالی</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">۱۲,۵۰۰,۰۰۰ تومان</span>
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-cart-plus me-1"></i>خرید
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 mb-4">
+                            <div class="card product-card">
+                                <img src="https://images.unsplash.com/photo-1600003263720-95b45a4035d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" 
+                                     class="card-img-top product-img" alt="کنسول بازی" onclick="zoomImage(this.src)">
+                                <div class="card-body">
+                                    <h5 class="card-title">کنسول بازی PS5</h5>
+                                    <p class="card-text text-muted">نسل جدید کنسول‌های بازی سونی با گرافیک 4K</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">۳۱,۰۰۰,۰۰۰ تومان</span>
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-cart-plus me-1"></i>خرید
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 mb-4">
+                            <div class="card product-card">
+                                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" 
+                                     class="card-img-top product-img" alt="هدفون" onclick="zoomImage(this.src)">
+                                <div class="card-body">
+                                    <h5 class="card-title">هدفون Beats Studio3</h5>
+                                    <p class="card-text text-muted">هدفون بی‌سیم با طراحی ارگونومیک و باطری طولانی</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">۹,۸۰۰,۰۰۰ تومان</span>
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-cart-plus me-1"></i>خرید
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary px-4 py-2">
+                            مشاهده همه محصولات <i class="fas fa-arrow-left ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- تب چت -->
+                <div class="tab-pane fade" id="chat" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h5 class="mb-0">مخاطبان</h5>
+                                </div>
+                                <div class="list-group list-group-flush">
+                                    <a href="#" class="list-group-item list-group-item-action active">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/women/32.jpg" 
+                                                 class="rounded-circle me-3" width="40" height="40" alt="">
+                                            <div>
+                                                <h6 class="mb-0">سارا محمدی</h6>
+                                                <small class="text-muted">آخرین پیام: ۲ دقیقه پیش</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/men/54.jpg" 
+                                                 class="rounded-circle me-3" width="40" height="40" alt="">
+                                            <div>
+                                                <h6 class="mb-0">علی رضایی</h6>
+                                                <small class="text-muted">آخرین پیام: ۱ ساعت پیش</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/women/68.jpg" 
+                                                 class="rounded-circle me-3" width="40" height="40" alt="">
+                                            <div>
+                                                <h6 class="mb-0">نازنین کریمی</h6>
+                                                <small class="text-muted">آخرین پیام: ۳ ساعت پیش</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <div class="card h-100">
+                                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://randomuser.me/api/portraits/women/32.jpg" 
+                                             class="rounded-circle me-3" width="40" height="40" alt="">
+                                        <div>
+                                            <h6 class="mb-0">سارا محمدی</h6>
+                                            <small class="text-muted">آنلاین</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-secondary me-1">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-video"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body chat-area d-flex flex-column" style="overflow-y: auto; max-height: 400px;">
+                                    <div class="chat-bubble received">
+                                        سلام! محصولی که دیروز دیدم هنوز موجوده؟
+                                    </div>
+                                    
+                                    <div class="chat-bubble sent">
+                                        بله، هنوز موجوده. می‌تونید امروز بیایید تحویل بگیرید؟
+                                    </div>
+                                    
+                                    <div class="chat-bubble received">
+                                        عالیه! ساعت ۴ بعدازظهر برم؟
+                                    </div>
+                                    
+                                    <div class="chat-bubble sent">
+                                        بله حتما. آدرس دقیق رو براتون می‌فرستم
+                                        <div class="mt-2">
+                                            <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" 
+                                                 class="img-thumbnail" width="150" alt="لوکیشن" onclick="zoomImage(this.src)">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="card-footer bg-white">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="پیام خود را بنویسید...">
+                                        <button class="btn btn-outline-secondary">
+                                            <i class="fas fa-paperclip"></i>
+                                        </button>
+                                        <button class="btn btn-primary">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- بخش احراز هویت -->
+        <div class="otp-box my-5" id="otpSection" style="display: none;">
+            <div class="text-center mb-4">
+                <h3 class="fw-bold">ورود/ثبت‌نام در Lajax</h3>
+                <p class="text-muted">کد تأیید را از طریق یکی از روش‌های زیر دریافت کنید</p>
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label">شماره موبایل یا ایمیل</label>
+                <input type="text" class="form-control" id="contactInput" placeholder="09123456789 یا example@email.com">
+            </div>
+            
+            <div class="d-grid gap-3 mb-4">
+                <button class="auth-btn" onclick="sendOTP('whatsapp')">
+                    <i class="fab fa-whatsapp me-2"></i>ارسال کد از طریق واتساپ
+                </button>
+                <button class="auth-btn" onclick="sendOTP('telegram')">
+                    <i class="fab fa-telegram me-2"></i>ارسال کد از طریق تلگرام
+                </button>
+                <button class="auth-btn" onclick="sendOTP('email')">
+                    <i class="fas fa-envelope me-2"></i>ارسال کد از طریق ایمیل
+                </button>
+            </div>
+            
+            <div id="otpInputSection" style="display: none;">
+                <div class="mb-3">
+                    <label class="form-label">کد تأیید ۶ رقمی</label>
+                    <input type="text" class="form-control" id="otpInput" placeholder="••••••">
+                </div>
+                <button class="btn btn-primary w-100" onclick="verifyOTP()">
+                    تأیید و ورود
+                </button>
+            </div>
+            
+            <div class="text-center mt-3">
+                <button class="btn btn-sm btn-link" onclick="document.getElementById('otpSection').style.display = 'none'">
+                    <i class="fas fa-times me-1"></i>بستن
+                </button>
+            </div>
+        </div>
+        
+        <!-- بخش درباره ما -->
+        <section id="about" class="my-5 py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-3">درباره Lajax</h2>
+                <p class="text-muted">ترکیبی نوآورانه از بهترین پلتفرم‌های ایرانی</p>
+            </div>
+            
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" 
+                         class="img-fluid rounded-3 shadow" alt="درباره ما">
+                </div>
+                <div class="col-md-6 mt-4 mt-md-0">
+                    <h3 class="fw-bold mb-4">چرا Lajax را انتخاب کنیم؟</h3>
+                    <p class="lead">
+                        Lajax یک پلتفرم یکپارچه است که بهترین ویژگی‌های دیوار، روبیکا و دیجی‌کالا را در یک محیط کاربری مدرن و ساده ترکیب کرده است.
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-transparent">
+                            <i class="fas fa-check-circle text-success me-2"></i> ثبت آگهی آسان و سریع مانند دیوار
+                        </li>
+                        <li class="list-group-item bg-transparent">
+                            <i class="fas fa-check-circle text-success me-2"></i> سیستم پیام‌رسانی پیشرفته مانند روبیکا
+                        </li>
+                        <li class="list-group-item bg-transparent">
+                            <i class="fas fa-check-circle text-success me-2"></i> تجربه خرید آنلاین عالی مانند دیجی‌کالا
+                        </li>
+                        <li class="list-group-item bg-transparent">
+                            <i class="fas fa-check-circle text-success me-2"></i> پشتیبانی از چندین درگاه پرداخت بانکی
+                        </li>
+                        <li class="list-group-item bg-transparent">
+                            <i class="fas fa-check-circle text-success me-2"></i> طراحی کاملاً واکنش‌گرا و بهینه برای موبایل
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-4">
+                        <button class="btn btn-outline-primary me-2">
+                            <i class="fas fa-book me-1"></i>مستندات فنی
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-code me-1"></i>مشاهده کدها در GitHub
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- فوتر -->
+        <footer class="footer" id="contact">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4 class="mb-4">Lajax</h4>
+                    <p>پلتفرم یکپارچه برای نیازهای روزمره شما</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-4">لینک‌های مفید</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="fas fa-angle-left me-2"></i>درباره ما
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="fas fa-angle-left me-2"></i>قوانین و مقررات
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="fas fa-angle-left me-2"></i>حریم خصوصی
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white text-decoration-none">
+                                <i class="fas fa-angle-left me-2"></i>پرسش‌های متداول
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5 class="mb-4">تماس با ما</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-map-marker-alt me-2"></i> تهران، خیابان آزادی، دانشگاه شریف
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-phone me-2"></i> ۰۲۱-۱۲۳۴۵۶۷۸
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-envelope me-2"></i> info@lajax.ir
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <button class="btn btn-light me-2">
+                            <i class="fas fa-download me-1"></i>دانلود اپلیکیشن
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4 bg-light">
+            
+            <div class="text-center">
+                <p class="mb-0">تمامی حقوق برای Lajax محفوظ است © ۱۴۰۲</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- مودال بزرگنمایی تصویر -->
+    <div id="imageZoomModal" class="zoom-modal" style="display: none;" onclick="closeZoom()">
+        <img id="zoomedImage" class="zoom-img" src="" alt="تصویر بزرگ شده">
+    </div>
+
+    <!-- اسکریپت‌ها -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // نمایش مودال OTP
+        function showOTPModal() {
+            document.getElementById('otpSection').style.display = 'block';
+            document.getElementById('otpInputSection').style.display = 'none';
+        }
+        
+        // ارسال کد OTP
+        function sendOTP(channel) {
+            const contact = document.getElementById('contactInput').value;
+            if (!contact) {
+                alert('لطفاً شماره موبایل یا ایمیل خود را وارد کنید');
+                return;
+            }
+            
+            // شبیه‌سازی ارسال کد (در نسخه واقعی به سرور متصل می‌شود)
+            alert(`کد تأیید به ${contact} از طریق ${channel === 'whatsapp' ? 'واتساپ' : 
+                  channel === 'telegram' ? 'تلگرام' : 'ایمیل'} ارسال شد`);
+            
+            document.getElementById('otpInputSection').style.display = 'block';
+        }
+        
+        // تأیید کد OTP
+        function verifyOTP() {
+            const otp = document.getElementById('otpInput').value;
+            if (otp.length !== 6) {
+                alert('لطفاً کد تأیید ۶ رقمی را وارد کنید');
+                return;
+            }
+            
+            // شبیه‌سازی تأیید کد
+            alert('احراز هویت با موفقیت انجام شد! خوش آمدید');
+            document.getElementById('otpSection').style.display = 'none';
+        }
+        
+        // بزرگنمایی تصویر
+        function zoomImage(src) {
+            document.getElementById('zoomedImage').src = src;
+            document.getElementById('imageZoomModal').style.display = 'flex';
+        }
+        
+        // بستن بزرگنمایی
+        function closeZoom() {
+            document.getElementById('imageZoomModal').style.display = 'none';
+        }
+        
+        // بستن مودال با کلیک خارج از آن
+        window.addEventListener('click', function(event) {
+            const otpSection = document.getElementById('otpSection');
+            if (event.target === otpSection) {
+                otpSection.style.display = 'none';
+            }
+        });
+        
+        // پشتیبانی از کیبورد
+        document.addEventListener('keydown', function(event) {
+            // بستن مودال با کلید ESC
+            if (event.key === 'Escape') {
+                document.getElementById('otpSection').style.display = 'none';
+                document.getElementById('imageZoomModal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
